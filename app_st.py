@@ -59,7 +59,8 @@ def check_collection_status(snapshot_id):
 # Función para obtener datos de BigQuery
 def get_bigquery_data(snapshot_id, limit=25):
     try:
-        credentials = service_account.Credentials.from_service_account_file('credentials')
+        credentials_dict = st.secrets["credentials"]
+        credentials = service_account.Credentials.from_service_account_info(credentials_dict)
         client = bigquery.Client(
             credentials=credentials, 
             project=credentials.project_id
