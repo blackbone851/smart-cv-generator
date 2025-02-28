@@ -3,3 +3,4 @@ pandas
 google-cloud-bigquery
 google-oauth2-tool
 requests
+db-dtypes>=1.0.0
