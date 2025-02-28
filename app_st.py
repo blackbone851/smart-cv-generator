@@ -30,7 +30,7 @@ if 'auto_refresh' not in st.session_state:
 # Configuración API Brightdata
 url_trigger = "https://api.brightdata.com/datasets/v3/trigger"
 headers = {
-    "Authorization": "Bearer fceb0cab2de532c7a7e212db9a7b944c3e0745031055ac84541e477d2cad86cb",
+    "Authorization": f"Bearer {st.secrets.brightdata.api_key}",
     "Content-Type": "application/json",
 }
 params_trigger = {
@@ -47,7 +47,7 @@ params_trigger = {
 def check_collection_status(snapshot_id):
     url_status = f"https://api.brightdata.com/datasets/v3/progress/{snapshot_id}"
     status_headers = {
-        "Authorization": "Bearer fceb0cab2de532c7a7e212db9a7b944c3e0745031055ac84541e477d2cad86cb",
+        "Authorization": f"Bearer {st.secrets.brightdata.api_key}",
     }
     try:
         response = requests.get(url_status, headers=status_headers)
@@ -59,7 +59,7 @@ def check_collection_status(snapshot_id):
 # Función para obtener datos de BigQuery
 def get_bigquery_data(snapshot_id, limit=25):
     try:
-        credentials = service_account.Credentials.from_service_account_file('credentials.json')
+        credentials = service_account.Credentials.from_service_account_file('credentials')
         client = bigquery.Client(
             credentials=credentials, 
             project=credentials.project_id
